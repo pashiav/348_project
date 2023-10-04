@@ -36,4 +36,8 @@ Pashia is going to manage the majority of the document, so we left off after tha
 <br>
 **ATTENDANCE:** All team members present, as well as new member Mick Eorres. Mikey came in about 30 minutes late.
 
-We had another Discord call. The first part of the call was to introduce Mick to the group and make sure that everyone was in the Github, Jira, and able to access the documents. Mick was assigned as another software engineer. The software engineers began to work on the Software Requirements Specifications document
+We had another Discord call. The first part of the call was to introduce Mick to the group and make sure that everyone was in the Github, Jira, and able to access the documents. Mick was assigned as another software engineer. The software engineers began to work on the Software Requirements Specifications document.
+
+We assigned who should do what work on the SRS document. Pashia and Anya were assigned to section one, Marco was assigned to use-case specifications, Mikey was assigned to supplementary requirements, and the rest of the work was to be divided among the software engineers.
+
+We ended the meeting at 6:50 PM.
