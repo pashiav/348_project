@@ -30,3 +30,10 @@ Your README should contain details of team members like name, major, background,
   - Relevant courses: EECS 140, EECS 168, EECS 268
   - Experiences: Network Operations Center Student Intern, Software Engineering Intern @ Cerner
   - Availability: 6pm Wednesdays
+
+## Blake Jesse
+  - Major: Computer Science
+  - Background:  Python, some c++
+  - Relevant courses: EECS 140, EECS 168, EECS 268
+  - Experiences: data engineer and programmer intern
+  - Availability: 6pm Wednesdays
