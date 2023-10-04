@@ -22,3 +22,11 @@ Your README should contain details of team members like name, major, background,
   - Relevant courses:
   - Experiences:
   - Availability:
+
+
+## Mikey Cauthon
+  - Major: Computer Science
+  - Background: Network Operations, Python, Flask, Django
+  - Relevant courses: EECS 140, EECS 168, EECS 268
+  - Experiences: Network Operations Center Student Intern, Software Engineering Intern @ Cerner
+  - Availability: 6pm Wednesdays
