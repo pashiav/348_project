@@ -24,11 +24,16 @@ We didn’t decide on a team name just yet, settling on “House Plant” as the
 ## Team Meeting 9/20
 **WHEN:** Wednesday, September 20th @ 6:10 PM
 <br>
-**PURPOSE:** Fill out the project management plan
-<br>
-**ATTENDANCE:** All team members present
-
 We got into a Discord call to work on the project management document together. We decided on what to use for the base data structure and did some basic edits to the document.
 We also decided to mainly use Discord as our mode of communication, as it is easier to catch up than in a group chat.
 
 Pashia is going to manage the majority of the document, so we left off after that. Pashia will send the rest of the team the completed document for review before submission.
+
+## Team Meeting 10/04
+**WHEN:** Wednesday, October 4th @ 6:00 PM
+<br>
+**PURPOSE:** Introduce and catch up Mick as well as work on the software requirements specifications.
+<br>
+**ATTENDANCE:** All team members present, as well as new member Mick Eorres. Mikey came in about 30 minutes late.
+
+We had another Discord call. The first part of the call was to introduce Mick to the group and make sure that everyone was in the Github, Jira, and able to access the documents. Mick was assigned as another software engineer. The software engineers began to work on the Software Requirements Specifications document
