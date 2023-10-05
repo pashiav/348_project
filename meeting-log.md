@@ -34,7 +34,7 @@ Pashia is going to manage the majority of the document, so we left off after tha
 <br>
 **PURPOSE:** Introduce and catch up Mick as well as work on the software requirements specifications.
 <br>
-**ATTENDANCE:** All team members present, as well as new member Mick Eorres. Mikey came in about 30 minutes late.
+**ATTENDANCE:** All team members present, as well as new member Mick Torres. Mikey came in about 30 minutes late.
 
 We had another Discord call. The first part of the call was to introduce Mick to the group and make sure that everyone was in the Github, Jira, and able to access the documents. Mick was assigned as another software engineer. The software engineers began to work on the Software Requirements Specifications document.
 
