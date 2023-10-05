@@ -10,19 +10,11 @@ Your README should contain details of team members like name, major, background,
   - Availability: 6pm Wednesdays
 
 ## Anya Combs
-  - Major:
-  - Background:
-  - Relevant courses:
-  - Experiences:
-  - Availability:
-
-## Anya Combs
-  - Major:
-  - Background:
-  - Relevant courses:
-  - Experiences:
-  - Availability:
-
+  - Major: Computer Science
+  - Background: Experienced with C++, Python, CSS and HTML
+  - Relevant courses: EECS 168, EECS268
+  - Experiences: Provides technical support to people learning CSS/HTML
+  - Availability: 6PM Wednesdays
 
 ## Mikey Cauthon
   - Major: Computer Science
