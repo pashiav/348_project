@@ -36,3 +36,10 @@ Your README should contain details of team members like name, major, background,
   - Relevant courses: EECS 140, EECS 168, EECS 268
   - Experiences:
   - Availability: 6pm Wednesdays
+
+## Edgar Mendez
+  - Major: Computer Science
+  - Background: Python, C++, JavaScript, Haskell, SQL, HTML
+  - Relevant courses: EECS 140, EECS 168, EECS 268, EECS 210
+  - Experiences: Information Technology Intern at Cerner
+  - Availability: 6pm Wednesdays 
