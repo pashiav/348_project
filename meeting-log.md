@@ -41,3 +41,14 @@ We had another Discord call. The first part of the call was to introduce Mick to
 We assigned who should do what work on the SRS document. Pashia and Anya were assigned to section one, Marco was assigned to use-case specifications, Mikey was assigned to supplementary requirements, and the rest of the work was to be divided among the software engineers.
 
 We ended the meeting at 6:50 PM.
+
+## Team Meeting 11/1
+**WHEN:** Wednesday, November 1st @ 6:00 PM
+<br>
+**PURPOSE:** Talk about the architecture document and other deliverables
+<br>
+**ATTENDANCE:** Pashia Vang, Anya Combs, Marco Martinez Reyez, Edgar Mendez Cano
+
+Another Discord meeting. We talked about the architecture slides from the previous class, due to members missing class yesterday. Pashia created the shared document and we did some task assignment. Pashia and Anya will work on the User Manual, Marco will work on the Test Cases, and the software engineers will be covering Implementation and the majority of the Software Architecture document.
+
+Due to people not being able to attend, we moved the more comprehensive meeting back to a later date. Meeting ended at 6:20 PM.
