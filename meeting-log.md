@@ -52,3 +52,14 @@ We ended the meeting at 6:50 PM.
 Another Discord meeting. We talked about the architecture slides from the previous class, due to members missing class yesterday. Pashia created the shared document and we did some task assignment. Pashia and Anya will work on the User Manual, Marco will work on the Test Cases, and the software engineers will be covering Implementation and the majority of the Software Architecture document.
 
 Due to people not being able to attend, we moved the more comprehensive meeting back to a later date. Meeting ended at 6:20 PM.
+
+## Team Metting 11/05
+**WHEN:** Sunday, November 5th @ 6:00 PM
+<br>
+**PURPOSE:** Talk about the architecture document
+<br>
+**ATTENDANCE:** All team members
+
+Discord call meeting to assign roles for architecture and talk about the other deliverables. Pashia and Anya were assigned to do the introductions for most documents, and Mikey will oversee most of the tasks in general. Mikey will be checking to make sure the architecture document is going smoothly. Pashia will contact the TA to figure out what specifically needs to be added to the requirements document.
+
+The software engineers will work on the architecture document throughout the week.
