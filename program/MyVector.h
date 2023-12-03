@@ -4,6 +4,8 @@
 #include <utility>
 #include <vector>
 
+using namespace std;
+
 template <typename DataType>
 class MyVector {
 private:
@@ -35,7 +37,7 @@ public:
     }
 
     // Constructor from std::vector
-    MyVector(const std::vector<DataType>& rhs) : theSize{rhs.size()}, theCapacity{rhs.size() + SPARE_CAPACITY}, data{new DataType[theCapacity]} {
+    MyVector(const vector<DataType>& rhs) : theSize{rhs.size()}, theCapacity{rhs.size() + SPARE_CAPACITY}, data{new DataType[theCapacity]} {
         for (int k = 0; k < theSize; ++k) {
             data[k] = rhs[k];
         }
@@ -49,15 +51,15 @@ public:
     // Copy assignment operator
     MyVector& operator=(const MyVector& rhs) {
         MyVector copy = rhs;
-        std::swap(*this, copy);
+        swap(*this, copy);
         return *this;
     }
 
     // Move assignment operator
     MyVector& operator=(MyVector&& rhs) {
-        std::swap(theSize, rhs.theSize);
-        std::swap(theCapacity, rhs.theCapacity);
-        std::swap(data, rhs.data);
+        swap(theSize, rhs.theSize);
+        swap(theCapacity, rhs.theCapacity);
+        swap(data, rhs.data);
     }
 
     // Resize the vector to the given size
@@ -75,10 +77,10 @@ public:
         }
         DataType* newArray = new DataType[newCapacity];
         for (int k = 0; k < theSize; ++k) {
-            newArray[k] = std::move(data[k]);
+            newArray[k] = move(data[k]);
         }
         theCapacity = newCapacity;
-        std::swap(data, newArray);
+        swap(data, newArray);
         delete[] newArray;
     }
 
@@ -119,7 +121,7 @@ public:
         if (theSize == theCapacity) {
             reserve(2 * theCapacity + 1);
         }
-        data[theSize++] = std::move(x);
+        data[theSize++] = move(x);
     }
 
     // Append the contents of another vector to this vector
@@ -128,7 +130,7 @@ public:
             reserve(theSize + rhs.size());
         }
         for (int k = 0; k < rhs.size(); ++k) {
-            data[theSize + k] = std::move(rhs[k]);
+            data[theSize + k] = move(rhs[k]);
         }
         theSize += rhs.size();
         rhs.theSize = 0;

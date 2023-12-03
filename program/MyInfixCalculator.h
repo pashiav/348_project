@@ -38,7 +38,7 @@ public:
     }
 
 private:
-    // Operator precedence (?)
+    // Operator precedence.
     int operatorPrec(const string &op) const {
         if (op == "^" || op == "**")
             return 1;
@@ -103,14 +103,6 @@ private:
                 printf("In digits\n");
                 current_token += c;
             }
-            // Handle negatives
-            else if (c == '-' && (i == 0 || (!isDigit(s[i-1]) && s[i-1] != ')'))) {
-                printf("In negatives\n");
-                current_token += '0';
-                tokens.push_back(current_token);
-                current_token = "";
-            }
-
             // Handle parentheses
             else if (isValidParenthesis(c)) {
                 if (!current_token.empty()) {
@@ -150,10 +142,10 @@ private:
                 }
 
                 // Handle the negative sign as part of a number
-                if (c == '-' && (i == 0 || s[i - 1] == '(')) {
-                    current_token += c;
-                    expecting_operator = true;
-                    continue;
+                if (c == '-' && (i == 0 || (!isDigit(s[i-1]) && s[i-1] != ')'))) {  // CHANGES; negatives fix
+                    current_token += '0';
+                    tokens.push_back(current_token);
+                    current_token = "";
                 }
 
                 tokens.push_back(string(1, c));
@@ -189,6 +181,7 @@ private:
                 operator_stack.push(token);
             }
         }
+
         while (!operator_stack.empty()) {
             postfix_tokens.push_back(operator_stack.top());
             operator_stack.pop();

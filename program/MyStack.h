@@ -6,9 +6,11 @@
 
 #include "MyVector.h"
 
+using namespace std;
+
 template <typename DataType>
 class MyStack : private MyVector<DataType>
-{  
+{
   public:
 
     explicit MyStack(size_t initSize = 0) : MyVector<DataType>(initSize)
@@ -21,7 +23,7 @@ class MyStack : private MyVector<DataType>
 
     }
 
-    MyStack(MyStack && rhs) : MyVector<DataType>(std::move(rhs))
+    MyStack(MyStack && rhs) : MyVector<DataType>(move(rhs))
     {
 
     }
@@ -44,7 +46,7 @@ class MyStack : private MyVector<DataType>
     MyStack & operator= (MyStack && rhs)
     {
 	if (this != &rhs){
-		MyVector<DataType>::operator=(std::move(rhs));
+		MyVector<DataType>::operator=(move(rhs));
 	}
 	return *this;
     }
@@ -56,7 +58,7 @@ class MyStack : private MyVector<DataType>
 
     void push(DataType && x)
     {
-	MyVector<DataType>::push_back(std::move(x));
+	MyVector<DataType>::push_back(move(x));
     }
 
     void pop(void)
@@ -79,7 +81,7 @@ class MyStack : private MyVector<DataType>
 	return MyVector<DataType>::size();
     }
 
-    size_t capacity(void) const 
+    size_t capacity(void) const
     {
 	return MyVector<DataType>::capacity();
     }
@@ -87,4 +89,4 @@ class MyStack : private MyVector<DataType>
 };
 
 
-#endif 
+#endif
