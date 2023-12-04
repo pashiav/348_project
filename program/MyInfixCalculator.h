@@ -10,191 +10,180 @@
 #include "MyStack.h"
 #include "MyVector.h"
 
-using namespace std;
-
-/*
-The infix calculator is the main program. An instance is created when the program is run.
-All calculations are done within this program, with the help of MyStack and MyVector.
-
-The infix calculator works by taking the user input, turning it into postfix notation and then calculating using postfix.
-*/
-
 class MyInfixCalculator {
 public:
     MyInfixCalculator() {}
 
     ~MyInfixCalculator() {}
 
-    // Calculate the result of the given input.
-    double calculate(const string &s) {
+    double calculate(const std::string &s) {
         if (s.empty()) {
-            throw invalid_argument("Empty input string."); // Empty string error
+            throw std::invalid_argument("Empty input string.");
         }
-        MyVector<string> infix_tokens;  // Creates a string for the raw user input
-        MyVector<string> postfix_tokens;  // Creates the postfix string for proper handling
-        tokenize(s, infix_tokens);  // Create tokens for the infix
-        infixToPostfix(infix_tokens, postfix_tokens);  // Turn it into postfix tokens
-        return calPostfix(postfix_tokens);  // Calculate using the postfix
+        MyVector<std::string> infix_tokens;
+        MyVector<std::string> postfix_tokens;
+        tokenize(s, infix_tokens);
+        infixToPostfix(infix_tokens, postfix_tokens);
+        return calPostfix(postfix_tokens);
     }
 
 private:
-    // Operator precedence.
-    int operatorPrec(const string &op) const {
-        if (op == "^" || op == "**")
-            return 1;
-        else if (op == "*" || op == "/" || op == "%")
-            return 2;
-        else if (op == "+" || op == "-")
-            return 3;
-        else
-            return -1; // invalid operator
+    int operatorPrec(const std::string &op) const {
+    if (op == "(" || op == ")") {
+        return 0;  // Parentheses have the highest precedence
+    } else if (op == "^" || op == "**") {
+        return 3;
+    } else if (op == "*" || op == "/" || op == "%") {
+        return 2;
+    } else if (op == "+" || op == "-") {
+        return 1;
+    } else {
+        return -1;  // Invalid operator
     }
+}
 
-    // Checks for valid parentheses.
+
+
     bool isValidParenthesis(const char c) const {
         return (c == '(' || c == ')');
     }
 
-    // Validates whether something is/isn't a digit (0-9).
     bool isDigit(const char c) const {
         return (c >= '0' && c <= '9');
     }
 
-    // Does the base computations.
-    double computeBinaryOperation(const double o1, const double o2, const string &opt) const {
-        cout << "o1: " << o1 << "; operator: " << opt << "; o2: " << o2 << endl; // TODO: remove. here for validation.
-
-        if (opt == "^" || opt == "**")  // Exponent
-            return pow(o1, o2);
-        else if (opt == "*")  // Multiplication
+    double computeBinaryOperation(const double o1, const double o2, const std::string &opt) const {
+        if (opt == "^" || opt == "**")
+            return std::pow(o1, o2);
+        else if (opt == "*")
             return o1 * o2;
-        else if (opt == "/") {  // Division
+        else if (opt == "/") {
             if (o2 == 0) {
-                throw invalid_argument("Division by zero.");
+                throw std::invalid_argument("Division by zero.");
             }
             return o1 / o2;
-        } else if (opt == "%") { // Modulo
+        } else if (opt == "%") {
             if (o2 == 0) {
-                throw invalid_argument("Modulo by zero.");
+                throw std::invalid_argument("Modulo by zero.");
             }
-            return fmod(o1, o2);
-        } else if (opt == "+") {  // Addition
+            return std::fmod(o1, o2);
+        } else if (opt == "+")
             return o1 + o2;
-        }
-        else if (opt == "-") {  // Subtraction
+        else if (opt == "-")
             return o1 - o2;
-        }
         else {
-            throw invalid_argument("Unrecognized operator.");  // TODO: Need to add a validation for non-digit nor operand characters + if possible, print what the unrecognized operator was.
+            throw std::invalid_argument("Unrecognized operator.");
         }
     }
 
-    // Tokenizes the user input, pushing it into a vector (TODO: Unsure about this explanation; SWE please adjust this comment so it's more descriptive)
-    void tokenize(const string &s, MyVector<string> &tokens) {
-        string current_token = "";
-        bool expecting_operator = false;
+    void tokenize(const std::string &s, MyVector<std::string> &tokens) {
+    std::string current_token = "";
+    bool expecting_operator = false;
 
-        // For loop to iterate over the string.
-        for (size_t i = 0; i < s.size(); i++) {
-            char c = s[i];  // Keeps the character in the string we're currently on.
+    for (size_t i = 0; i < s.size(); i++) {
+        char c = s[i];
 
-            // Handle digits and decimals
+        // Handle digits and decimals
             if (isDigit(c) || (c == '.' && !current_token.empty() && isDigit(current_token.back()))) {
-                printf("In digits\n");
-                current_token += c;
+            current_token += c;
+            expecting_operator = true;
+        }
+        // Handle parentheses
+        else if (isValidParenthesis(c)) {
+            if (!current_token.empty()) {
+                tokens.push_back(current_token);
+                current_token = "";
             }
-            // Handle parentheses
-            else if (isValidParenthesis(c)) {
-                if (!current_token.empty()) {
-                    tokens.push_back(current_token);
-                    current_token = "";
-                }
 
-                // Handle implicit multiplication and negative sign before parentheses
-                if ((expecting_operator && c == '(') || (c == '(' && i > 0 && s[i - 1] == '-')) {
-                    tokens.push_back("*");
-                }
-
-                 // Handle the negative sign before parentheses
+            // Handle implicit multiplication and negative sign before parentheses
+            if ((expecting_operator && c == '(') || (c == '(' && i > 0 && s[i - 1] == '-')) {
+                tokens.push_back("*");
+            }
+            // Handle the negative sign before parentheses
             if (c == '(' && i > 0 && s[i - 1] == '-') {
+                tokens.push_back("(");    
                 tokens.push_back("0");
                 tokens.push_back("-");
                 tokens.push_back("1");
-                tokens.push_back("*");
-            }
-                expecting_operator = (c == '(');
-            }
-            // Handle '**' as an exponentiation operator
-            else if (c == '*' && i < s.size() - 1 && s[i + 1] == '*') {
-                if (!current_token.empty()) {
-                    tokens.push_back(current_token);
-                    current_token = "";
-                }
-                tokens.push_back("**");
-                expecting_operator = true;
-                i++; // skip the next character
+                tokens.push_back(")");
             }
 
-            // Handle other operators
-            else {
-                if (!current_token.empty()) {
-                    tokens.push_back(current_token);
-                    current_token = "";
-                }
+            expecting_operator = (c == '(');
+        }
+        // Handle '**' as an exponentiation operator
+        else if (c == '*' && i < s.size() - 1 && s[i + 1] == '*') {
+            if (!current_token.empty()) {
+                tokens.push_back(current_token);
+                current_token = "";
+            }
+            tokens.push_back("**");
+            expecting_operator = true;
+            i++; // skip the next character
+        }
+        // Handle whitespace
+        else if (c == ' ') {
+            continue;
+        }
+        // Handle other operators
+        else {
+            if (!current_token.empty()) {
+                tokens.push_back(current_token);
+                current_token = "";
+            }
 
-                // Handle the negative sign as part of a number
-                if (c == '-' && (i == 0 || (!isDigit(s[i-1]) && s[i-1] != ')'))) {  // CHANGES; negatives fix
+            if (c == '-' && (i == 0 || (!isDigit(s[i-1]) && s[i-1] != ')'))) {  // CHANGES; negatives fix
                     current_token += '0';
                     tokens.push_back(current_token);
                     current_token = "";
                 }
 
-                tokens.push_back(string(1, c));
-                expecting_operator = true;
-            }
-        }
-
-        // Add the last token if not empty
-        if (!current_token.empty()) {
-            tokens.push_back(current_token);
+            tokens.push_back(std::string(1, c));
+            expecting_operator = true;
         }
     }
 
-    // Converts the infix input to postfix.
-    void infixToPostfix(MyVector<string> &infix_tokens, MyVector<string> &postfix_tokens) {
-        MyStack<string> operator_stack;
-        for (const auto &token : infix_tokens) {
-            if (isDigit(token[0])) {
-                postfix_tokens.push_back(token);
-            } else if (token == "(") {
-                operator_stack.push(token);
-            } else if (token == ")") {
-                while (!operator_stack.empty() && operator_stack.top() != "(") {
-                    postfix_tokens.push_back(operator_stack.top());
-                    operator_stack.pop();
-                }
+    // Add the last token if not empty
+    if (!current_token.empty()) {
+        tokens.push_back(current_token);
+    }
+}
+
+
+
+    void infixToPostfix(MyVector<std::string> &infix_tokens, MyVector<std::string> &postfix_tokens) {
+    MyStack<std::string> operator_stack;
+    for (const auto &token : infix_tokens) {
+        if (isDigit(token[0])) {
+            postfix_tokens.push_back(token);
+        } else if (token == "(") {
+            operator_stack.push(token);
+        } else if (token == ")") {
+            while (!operator_stack.empty() && operator_stack.top() != "(") {
+                postfix_tokens.push_back(operator_stack.top());
                 operator_stack.pop();
-            } else {
-                while (!operator_stack.empty() && operatorPrec(operator_stack.top()) <= operatorPrec(token)) {
-                    postfix_tokens.push_back(operator_stack.top());
-                    operator_stack.pop();
-                }
-                operator_stack.push(token);
             }
-        }
-
-        while (!operator_stack.empty()) {
-            postfix_tokens.push_back(operator_stack.top());
-            operator_stack.pop();
+            operator_stack.pop();  // Pop the "("
+        } else {
+            // Adjusted the comparison to give higher precedence to operators inside parentheses
+            while (!operator_stack.empty() && operator_stack.top() != "(" && operatorPrec(operator_stack.top()) <= operatorPrec(token)) {
+                postfix_tokens.push_back(operator_stack.top());
+                operator_stack.pop();
+            }
+            operator_stack.push(token);
         }
     }
+    while (!operator_stack.empty()) {
+        postfix_tokens.push_back(operator_stack.top());
+        operator_stack.pop();
+    }
+}
 
-    // Calculates the result using postfix notation.
-    double calPostfix(const MyVector<string> &postfix_tokens) const {
+
+    double calPostfix(const MyVector<std::string> &postfix_tokens) const {
         MyStack<double> operand_stack;
         for (const auto &token : postfix_tokens) {
             if (isDigit(token[0])) {
-                operand_stack.push(stod(token));
+                operand_stack.push(std::stod(token));
             } else {
                 double o2 = operand_stack.top();
                 operand_stack.pop();
