@@ -29,15 +29,20 @@ public:
 
 private:
     int operatorPrec(const std::string &op) const {
-        if (op == "^" || op == "**")
-            return 1;
-        else if (op == "*" || op == "/" || op == "%")
-            return 2;
-        else if (op == "+" || op == "-")
-            return 3;
-        else
-            return -1; // invalid operator
+    if (op == "(" || op == ")") {
+        return 3;  // Parentheses have the highest precedence
+    } else if (op == "^" || op == "**") {
+        return 2;
+    } else if (op == "*" || op == "/" || op == "%") {
+        return 1;
+    } else if (op == "+" || op == "-") {
+        return 3;
+    } else {
+        return -1;  // Invalid operator
     }
+}
+
+
 
     bool isValidParenthesis(const char c) const {
         return (c == '(' || c == ')');
@@ -79,7 +84,11 @@ private:
         char c = s[i];
 
         // Handle digits and decimals
-        if (isDigit(c) || c == '.' || (c == '-' && (i == 0 || (!isDigit(s[i - 1]) && s[i - 1] != ')' && s[i - 1] != ' ')))) {
+            if (isDigit(c) || (c == '.' && !current_token.empty() && isDigit(current_token.back()))) {
+            current_token += c;
+            expecting_operator = true;
+        }else if (c == '.' && current_token.empty()) {
+            current_token += '0'; // Prepend '0' before the decimal point
             current_token += c;
             expecting_operator = true;
         }
@@ -91,14 +100,27 @@ private:
             }
 
             // Handle implicit multiplication and negative sign before parentheses
-            if ((expecting_operator && c == '(') || (c == '(' && i > 0 && s[i - 1] == '-')) {
+            if ((expecting_operator && c == '(') && (c == '(' && i > 0 && s[i - 1] == '-')) {
+                tokens.push_back("*");
+            }else if ((expecting_operator && c == '(') && (c == '(' && i > 0 && s[i - 1] == '/')) {
+                tokens.push_back("1");
+                tokens.push_back("/");
+            }else if ((expecting_operator && c == '(') && (c == '(' && i > 0 && s[i - 1] == '*')) {
+                tokens.push_back("1");
+                tokens.push_back("*");
+            }else if ((expecting_operator && c == '(') && (c == '(' && i > 0 && s[i - 1] == '+')) {
+                tokens.push_back("0");
+                tokens.push_back("+");
+            }else if ((expecting_operator && c == '(') && (c == '(' && i > 0 && isDigit(s[i - 1]))) {
                 tokens.push_back("*");
             }
-
             // Handle the negative sign before parentheses
             if (c == '(' && i > 0 && s[i - 1] == '-') {
-                tokens.push_back("-1");
-                tokens.push_back("*");
+                tokens.push_back("(");    
+                tokens.push_back("0");
+                tokens.push_back("-");
+                tokens.push_back("1");
+                tokens.push_back(")");
             }
 
             expecting_operator = (c == '(');
@@ -124,12 +146,11 @@ private:
                 current_token = "";
             }
 
-            // Handle the negative sign as part of a number
-            if (c == '-' && (i == 0 || s[i - 1] == '(')) {
-                current_token += c;
-                expecting_operator = true;
-                continue;
-            }
+            if (c == '-' && (i == 0 || (!isDigit(s[i-1]) && s[i-1] != ')'))) {  // CHANGES; negatives fix
+                    current_token += '0';
+                    tokens.push_back(current_token);
+                    current_token = "";
+                }
 
             tokens.push_back(std::string(1, c));
             expecting_operator = true;
@@ -145,31 +166,33 @@ private:
 
 
     void infixToPostfix(MyVector<std::string> &infix_tokens, MyVector<std::string> &postfix_tokens) {
-        MyStack<std::string> operator_stack;
-        for (const auto &token : infix_tokens) {
-            if (isDigit(token[0])) {
-                postfix_tokens.push_back(token);
-            } else if (token == "(") {
-                operator_stack.push(token);
-            } else if (token == ")") {
-                while (!operator_stack.empty() && operator_stack.top() != "(") {
-                    postfix_tokens.push_back(operator_stack.top());
-                    operator_stack.pop();
-                }
+    MyStack<std::string> operator_stack;
+    for (const auto &token : infix_tokens) {
+        if (isDigit(token[0])) {
+            postfix_tokens.push_back(token);
+        } else if (token == "(") {
+            operator_stack.push(token);
+        } else if (token == ")") {
+            while (!operator_stack.empty() && operator_stack.top() != "(") {
+                postfix_tokens.push_back(operator_stack.top());
                 operator_stack.pop();
-            } else {
-                while (!operator_stack.empty() && operatorPrec(operator_stack.top()) <= operatorPrec(token)) {
-                    postfix_tokens.push_back(operator_stack.top());
-                    operator_stack.pop();
-                }
-                operator_stack.push(token);
             }
-        }
-        while (!operator_stack.empty()) {
-            postfix_tokens.push_back(operator_stack.top());
-            operator_stack.pop();
+            operator_stack.pop();  // Pop the "("
+        } else {
+            // Adjusted the comparison to give higher precedence to operators inside parentheses
+            while (!operator_stack.empty() && operator_stack.top() != "(" && operatorPrec(operator_stack.top()) <= operatorPrec(token)) {
+                postfix_tokens.push_back(operator_stack.top());
+                operator_stack.pop();
+            }
+            operator_stack.push(token);
         }
     }
+    while (!operator_stack.empty()) {
+        postfix_tokens.push_back(operator_stack.top());
+        operator_stack.pop();
+    }
+}
+
 
     double calPostfix(const MyVector<std::string> &postfix_tokens) const {
         MyStack<double> operand_stack;

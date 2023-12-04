@@ -14,7 +14,7 @@ int main(int argc, char* argv[]) {
 
     // Prompt the user to enter an equation
     cout << "Enter an equation to be solved: "; 
-    cin >> str; 
+    getline(cin, str);  // Read the entire line
 
     // Create an instance of MyInfixCalculator
     MyInfixCalculator infix_calculator;
