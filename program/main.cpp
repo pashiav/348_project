@@ -2,6 +2,9 @@
 #include <fstream>
 #include <string>
 
+#include "stack.h"
+#include "infixcalculator.h"
+
 using namespace std;
 
 /*
@@ -12,7 +15,7 @@ running the calculation portion, allowing for the user to input an expression to
 */
 
 int main() {
-    string str;  // Define the input string.
+    char str;  // Define the input string.
 
     // Introduction paragraph
     cout << "Welcome to M.A.R.C.O.!" << endl
@@ -24,9 +27,7 @@ int main() {
     while (1) {
         // Prompt the user to enter an equation
         cout << "Enter an equation to be solved: ";
-        getline(cin, str);
-
-        // TODO: Solve the equation.
+        cin >> str;
     }
 
     // End of program.

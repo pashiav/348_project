@@ -1,0 +1,21 @@
+# depslib dependency file v1.0
+1701655441 source:c:\users\anya\documents\college\fall 2023 ku\eecs348\348_new\348_project\program\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	"stack.h"
+	"infixcalculator.h"
+
+1701645506 source:c:\users\anya\documents\college\fall 2023 ku\eecs348\348_new\348_project\program\src\infixcalculator.cpp
+	"infixcalculator.h"
+
+1701645506 c:\users\anya\documents\college\fall 2023 ku\eecs348\348_new\348_project\program\include\infixcalculator.h
+
+1701655603 source:c:\users\anya\documents\college\fall 2023 ku\eecs348\348_new\348_project\program\src\stack.cpp
+	<stdio.h>
+	<stdexcept>
+	<iostream>
+	"stack.h"
+
+1701655543 c:\users\anya\documents\college\fall 2023 ku\eecs348\348_new\348_project\program\include\stack.h
+
