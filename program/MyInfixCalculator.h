@@ -87,6 +87,10 @@ private:
             if (isDigit(c) || (c == '.' && !current_token.empty() && isDigit(current_token.back()))) {
             current_token += c;
             expecting_operator = true;
+        }else if (c == '.' && current_token.empty()) {
+            current_token += '0'; // Prepend '0' before the decimal point
+            current_token += c;
+            expecting_operator = true;
         }
         // Handle parentheses
         else if (isValidParenthesis(c)) {
