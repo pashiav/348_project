@@ -2,7 +2,6 @@
 #include <fstream>
 #include <string>
 
-#include "stack.h"
 #include "infixcalculator.h"
 
 using namespace std;
