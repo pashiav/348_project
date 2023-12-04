@@ -96,7 +96,18 @@ private:
             }
 
             // Handle implicit multiplication and negative sign before parentheses
-            if ((expecting_operator && c == '(') || (c == '(' && i > 0 && s[i - 1] == '-')) {
+            if ((expecting_operator && c == '(') && (c == '(' && i > 0 && s[i - 1] == '-')) {
+                tokens.push_back("*");
+            }else if ((expecting_operator && c == '(') && (c == '(' && i > 0 && s[i - 1] == '/')) {
+                tokens.push_back("1");
+                tokens.push_back("/");
+            }else if ((expecting_operator && c == '(') && (c == '(' && i > 0 && s[i - 1] == '*')) {
+                tokens.push_back("1");
+                tokens.push_back("*");
+            }else if ((expecting_operator && c == '(') && (c == '(' && i > 0 && s[i - 1] == '+')) {
+                tokens.push_back("0");
+                tokens.push_back("+");
+            }else if ((expecting_operator && c == '(') && (c == '(' && i > 0 && isDigit(s[i - 1]))) {
                 tokens.push_back("*");
             }
             // Handle the negative sign before parentheses
