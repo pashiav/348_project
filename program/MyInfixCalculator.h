@@ -30,13 +30,13 @@ public:
 private:
     int operatorPrec(const std::string &op) const {
     if (op == "(" || op == ")") {
-        return 0;  // Parentheses have the highest precedence
+        return 3;  // Parentheses have the highest precedence
     } else if (op == "^" || op == "**") {
-        return 3;
-    } else if (op == "*" || op == "/" || op == "%") {
         return 2;
-    } else if (op == "+" || op == "-") {
+    } else if (op == "*" || op == "/" || op == "%") {
         return 1;
+    } else if (op == "+" || op == "-") {
+        return 3;
     } else {
         return -1;  // Invalid operator
     }
