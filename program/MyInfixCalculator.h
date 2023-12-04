@@ -115,12 +115,13 @@ private:
                     tokens.push_back("*");
                 }
 
-                // Handle the negative sign before parentheses
-                if (c == '(' && i > 0 && s[i - 1] == '-') {
-                    tokens.push_back("-1");
-                    tokens.push_back("*");
-                }
-
+                 // Handle the negative sign before parentheses
+            if (c == '(' && i > 0 && s[i - 1] == '-') {
+                tokens.push_back("0");
+                tokens.push_back("-");
+                tokens.push_back("1");
+                tokens.push_back("*");
+            }
                 expecting_operator = (c == '(');
             }
             // Handle '**' as an exponentiation operator
